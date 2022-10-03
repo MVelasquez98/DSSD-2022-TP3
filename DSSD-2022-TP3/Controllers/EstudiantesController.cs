@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DSSD_2022_TP3;
 using DSSD_2022_TP3.Model;
+using Microsoft.AspNetCore.Cors;
 
 namespace DSSD_2022_TP3.Controllers
 {
     [Route("api/[controller]")]
-
+    [EnableCors]
     [ApiController]
     public class EstudiantesController : ControllerBase
     {
