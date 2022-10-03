@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VHFks/b0VzZZ6l0BrjOjA5f3NfOLJgUPygJG0fMAu1QsOhzC18coIyKtoFvw4yiL+NxDmDVgGeH1mVCTHzh22w==",
+  "dgSpecHash": "a+QXE1jj0Sm8y7k7lqHF3bFx5lvt8wgW+Y9rqOo87ck5HKQ50Z2MPwmEaja0EUZbmei2sL5aryKM5UvLbG5/YQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Mati\\source\\repos\\DSSD-2022-TP3\\DSSD-2022-TP3\\DSSD-2022-TP3.csproj",
   "expectedPackageFiles": [
@@ -187,7 +187,11 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\Mati\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\Mati\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.7\\microsoft.netcore.app.ref.6.0.7.nupkg.sha512",
+    "C:\\Users\\Mati\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.7\\microsoft.windowsdesktop.app.ref.6.0.7.nupkg.sha512",
+    "C:\\Users\\Mati\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.7\\microsoft.aspnetcore.app.ref.6.0.7.nupkg.sha512",
+    "C:\\Users\\Mati\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.7\\microsoft.netcore.app.host.win-x64.6.0.7.nupkg.sha512"
   ],
   "logs": []
 }
