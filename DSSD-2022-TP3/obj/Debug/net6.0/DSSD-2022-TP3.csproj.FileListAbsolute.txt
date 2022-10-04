@@ -271,3 +271,4 @@ C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\MySql.Da
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\Ubiety.Dns.Core.dll
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\ZstdNet.dll
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\Swashbuckle.AspNetCore.Annotations.dll

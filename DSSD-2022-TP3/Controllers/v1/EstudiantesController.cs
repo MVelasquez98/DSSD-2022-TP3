@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DSSD_2022_TP3;
 using DSSD_2022_TP3.Model;
 using Microsoft.AspNetCore.Cors;
+using Swashbuckle.AspNetCore.Annotations;
 
-namespace DSSD_2022_TP3.Controllers
+namespace DSSD_2022_TP3.Controllers.v1
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/estudiantes")]
     [EnableCors]
     [ApiController]
     public class EstudiantesController : ControllerBase
@@ -23,14 +18,18 @@ namespace DSSD_2022_TP3.Controllers
             _context = context;
         }
 
-        // GET: api/Estudiantes
+        // GET: api/v1/Estudiantes
+        [SwaggerOperation(Description = "Obiene el listado completo de estudiantes", Summary = "Obtener listado de estudiantes")]
+        [SwaggerResponse(200, "Listado completo")]
+        [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Estudiante>>> GetEstudiantes()
         {
             return await _context.Estudiantes.ToListAsync();
         }
 
-        // GET: api/Estudiantes/5
+        // GET: api/v1/Estudiantes/5
+        [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Estudiante>> GetEstudiante(int id)
         {
@@ -44,8 +43,8 @@ namespace DSSD_2022_TP3.Controllers
             return estudiante;
         }
 
-        // PUT: api/Estudiantes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/v1/Estudiantes/5
+        [ApiExplorerSettings(GroupName = "v1")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEstudiante(int id, Estudiante estudiante)
         {
@@ -75,8 +74,8 @@ namespace DSSD_2022_TP3.Controllers
             return NoContent();
         }
 
-        // POST: api/Estudiantes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/v1/Estudiantes
+        [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost]
         public async Task<ActionResult<Estudiante>> PostEstudiante(Estudiante estudiante)
         {
@@ -86,7 +85,8 @@ namespace DSSD_2022_TP3.Controllers
             return CreatedAtAction("GetEstudiante", new { id = estudiante.IdEstudiante }, estudiante);
         }
 
-        // DELETE: api/Estudiantes/5
+        // DELETE: api/v1/Estudiantes/5
+        [ApiExplorerSettings(GroupName = "v1")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEstudiante(int id)
         {
