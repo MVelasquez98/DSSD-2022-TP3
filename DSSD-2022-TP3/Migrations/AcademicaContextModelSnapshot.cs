@@ -35,12 +35,73 @@ namespace DSSD_2022_TP3.Migrations
                     b.ToTable("carreras");
                 });
 
-            modelBuilder.Entity("DSSD_2022_TP3.Model.Estudiante", b =>
+            modelBuilder.Entity("DSSD_2022_TP3.Model.Materia", b =>
                 {
-                    b.Property<int>("IdEstudiante")
+                    b.Property<int>("IdMateria")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("idEstudiante");
+                        .HasColumnName("idMateria");
+
+                    b.Property<int>("AnioCarrera")
+                        .HasColumnType("int")
+                        .HasColumnName("anioCarrera");
+
+                    b.Property<int>("IdCarrera")
+                        .HasColumnType("int")
+                        .HasColumnName("idCarrera");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("nombre");
+
+                    b.HasKey("IdMateria");
+
+                    b.HasIndex("IdCarrera");
+
+                    b.ToTable("materias");
+                });
+
+            modelBuilder.Entity("DSSD_2022_TP3.Model.TipoUsuario", b =>
+                {
+                    b.Property<int>("IdTipoUsuario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idTipoUsuario");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("nombre");
+
+                    b.HasKey("IdTipoUsuario");
+
+                    b.ToTable("tipos_de_usuario");
+                });
+
+            modelBuilder.Entity("DSSD_2022_TP3.Model.Turno", b =>
+                {
+                    b.Property<int>("IdTurno")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idTurno");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("nombre");
+
+                    b.HasKey("IdTurno");
+
+                    b.ToTable("turnos");
+                });
+
+            modelBuilder.Entity("DSSD_2022_TP3.Model.Usuario", b =>
+                {
+                    b.Property<int>("IdUsuario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("idUsuario");
 
                     b.Property<string>("Apellido")
                         .IsRequired()
@@ -69,62 +130,30 @@ namespace DSSD_2022_TP3.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("forzarClave");
 
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("nombre");
-
-                    b.Property<string>("Usuario")
-                        .HasColumnType("longtext")
-                        .HasColumnName("usuario");
-
-                    b.HasKey("IdEstudiante");
-
-                    b.ToTable("estudiantes");
-                });
-
-            modelBuilder.Entity("DSSD_2022_TP3.Model.Materia", b =>
-                {
-                    b.Property<int>("IdMateria")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("idMateria");
-
-                    b.Property<int>("AnioCarrera")
-                        .HasColumnType("int")
-                        .HasColumnName("anioCarrera");
-
                     b.Property<int>("IdCarrera")
                         .HasColumnType("int")
                         .HasColumnName("idCarrera");
 
+                    b.Property<int>("IdTipoUsuario")
+                        .HasColumnType("int")
+                        .HasColumnName("idTipoUsuario");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("nombre");
 
-                    b.HasKey("IdMateria");
+                    b.Property<string>("Username")
+                        .HasColumnType("longtext")
+                        .HasColumnName("usuario");
+
+                    b.HasKey("IdUsuario");
 
                     b.HasIndex("IdCarrera");
 
-                    b.ToTable("materias");
-                });
+                    b.HasIndex("IdTipoUsuario");
 
-            modelBuilder.Entity("DSSD_2022_TP3.Model.Turno", b =>
-                {
-                    b.Property<int>("IdTurno")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("idTurno");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("nombre");
-
-                    b.HasKey("IdTurno");
-
-                    b.ToTable("turnos");
+                    b.ToTable("usuarios");
                 });
 
             modelBuilder.Entity("DSSD_2022_TP3.Model.Materia", b =>
@@ -136,6 +165,25 @@ namespace DSSD_2022_TP3.Migrations
                         .IsRequired();
 
                     b.Navigation("Carrera");
+                });
+
+            modelBuilder.Entity("DSSD_2022_TP3.Model.Usuario", b =>
+                {
+                    b.HasOne("DSSD_2022_TP3.Model.Carrera", "Carrera")
+                        .WithMany()
+                        .HasForeignKey("IdCarrera")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DSSD_2022_TP3.Model.TipoUsuario", "TipoUsuario")
+                        .WithMany()
+                        .HasForeignKey("IdTipoUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Carrera");
+
+                    b.Navigation("TipoUsuario");
                 });
 #pragma warning restore 612, 618
         }

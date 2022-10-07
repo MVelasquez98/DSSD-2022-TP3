@@ -19,6 +19,12 @@ namespace DSSD_2022_TP3
                 model.HasKey(m => m.IdMateria);
                 model.HasOne(m => m.Carrera).WithMany().HasForeignKey(m => m.IdCarrera);
             });
+            modelBuilder.Entity<Usuario>(model =>
+            {
+                model.HasKey(m => m.IdUsuario);
+                model.HasOne(m => m.Carrera).WithMany().HasForeignKey(m => m.IdCarrera);
+                model.HasOne(m => m.TipoUsuario).WithMany().HasForeignKey(m => m.IdTipoUsuario);
+            });
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -27,7 +33,7 @@ namespace DSSD_2022_TP3
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
 
-        public DbSet<Estudiante> Estudiantes { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Materia> Materias { get; set; }
         public DbSet<Carrera> Carreras { get; set; }
         public DbSet<Turno> Turnos { get; set; }
