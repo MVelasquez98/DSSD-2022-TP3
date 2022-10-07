@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DSSD_2022_TP3.Model
@@ -8,6 +9,7 @@ namespace DSSD_2022_TP3.Model
     {   /// <summary>
         /// Id que identifica al estudiante
         /// </summary>
+        ///
         [Key]
         [Column("idEstudiante")]
         public int IdEstudiante { get; set; }
@@ -15,17 +17,17 @@ namespace DSSD_2022_TP3.Model
         /// nombre que identifica al estudiante
         /// </summary>
         [Column("nombre")]
-        public string? Nombre { get; set; }
+        public string Nombre { get; set; }
         /// <summary>
         /// apellido que identifica al estudiante
         /// </summary>
         [Column("apellido")]
-        public string? Apellido { get; set; }
+        public string Apellido { get; set; }
         /// <summary>
         /// dni que identifica al estudiante
         /// </summary>
         [Column("dni")]
-        public string? Dni { get; set; }
+        public string Dni { get; set; }
         /// <summary>
         /// usuario que identifica al estudiante (basado en el nombre y apellido de la persona)
         /// </summary>
@@ -45,12 +47,9 @@ namespace DSSD_2022_TP3.Model
         /// celular como dato de contacto del estudiante
         /// </summary>
         [Column("celular")]
-        public string? Celular { get; set; }
+        public string Celular { get; set; }
 
         [Column("forzarClave")]
         public bool ForzarClave { get; set; }
-
-        [Column("baja")]
-        public bool Baja { get; set; }
     }
 }
