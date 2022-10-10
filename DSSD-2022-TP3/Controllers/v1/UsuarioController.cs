@@ -24,7 +24,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         public async Task<ActionResult<Usuario>> Login(string username, string password)
         {
             Usuario? usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Username == username && u.Clave == password);
-            if (usuario == null) return NotFound(username);
+            if (usuario == null) return StatusCode(204, $"usrname:{username} y password:{password} no esta registrado");
             return usuario;
         }
 
@@ -48,6 +48,16 @@ namespace DSSD_2022_TP3.Controllers.v1
             return await _context.Usuarios.Where(u => u.IdTipoUsuario == ((int)TiposUsuario.Docente)).ToListAsync();
         }
 
+        // GET: api/v1/docentes/1
+        [SwaggerOperation(Description = "Obiene el listado de docentes segun el id de carrera", Summary = "Obtener listado de docentes segun carrera")]
+        [SwaggerResponse(200, "Listado completo")]
+        [ApiExplorerSettings(GroupName = "v1")]
+        [HttpGet("docentes/{idCarrera}")]
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetDocentesByCarrera(int idCarrera)
+        {
+            return await _context.Usuarios.Where(u => u.IdTipoUsuario == ((int)TiposUsuario.Docente) && u.IdCarrera == idCarrera).ToListAsync();
+        }
+
         // GET: api/v1/usuario/5
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("{id}")]
@@ -57,7 +67,7 @@ namespace DSSD_2022_TP3.Controllers.v1
 
             if (estudiante == null)
             {
-                return NotFound();
+                return StatusCode(204);
             }
 
             return estudiante;
@@ -66,32 +76,31 @@ namespace DSSD_2022_TP3.Controllers.v1
         // PUT: api/v1/usuarios/5
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario estudiante)
+        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
         {
-            if (id != estudiante.IdUsuario)
+            if (id != usuario.IdUsuario)
             {
                 return BadRequest();
             }
 
-            _context.Entry(estudiante).State = EntityState.Modified;
+            var userUpdate = _context.Entry(usuario).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
+                return CreatedAtAction("GetUsuario", new { id = usuario.IdUsuario }, usuario);
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!UsuarioExists(id))
                 {
-                    return NotFound();
+                    return StatusCode(204);
                 }
                 else
                 {
                     throw;
                 }
             }
-
-            return NoContent();
         }
 
         // POST: api/v1/usuario
@@ -100,9 +109,9 @@ namespace DSSD_2022_TP3.Controllers.v1
         public async Task<ActionResult<Usuario>> PostUsuario(UsuarioPost usuario)
         {
             Usuario userSave = new Usuario(usuario.Nombre, usuario.Apellido, usuario.Dni, usuario.Correo, usuario.Celular, usuario.IdCarrera, usuario.IdTipoUsuario);
-            var x = _context.Usuarios.Add(userSave);
+            var userAdd = _context.Usuarios.Add(userSave);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetUsuario", new { id = x.Entity.IdUsuario }, userSave);
+            return CreatedAtAction("GetUsuario", new { id = userAdd.Entity.IdUsuario }, userSave);
         }
 
         // DELETE: api/v1/usuarios/5
@@ -113,7 +122,7 @@ namespace DSSD_2022_TP3.Controllers.v1
             var estudiante = await _context.Usuarios.FindAsync(id);
             if (estudiante == null)
             {
-                return NotFound();
+                return StatusCode(204);
             }
 
             _context.Usuarios.Remove(estudiante);
