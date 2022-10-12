@@ -15,7 +15,7 @@ namespace DSSD_2022_TP3.Model
         /// <summary>
         /// nombre que identifica a la carrera
         /// </summary>
-        [Column("nombre")]
+        [Column("carrera")]
         public string Nombre { get; set; }
     }
 }

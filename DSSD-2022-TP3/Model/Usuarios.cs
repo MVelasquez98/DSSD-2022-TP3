@@ -18,7 +18,7 @@ namespace DSSD_2022_TP3.Model
             IdCarrera = idCarrera;
             IdTipoUsuario = idTipoUsuario;
             ForzarClave = true;
-            Username = $"{nombre.Substring(0, 2)}{apellido.Substring(0, 2)}{dni.Substring(0, 2)}";
+            Username = $"{nombre.Substring(0, 3).ToLower()}{apellido.ToLower()}{dni.Substring(0, 2)}";
             Clave = "Pass123";
         }
 

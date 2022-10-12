@@ -23,7 +23,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         [HttpGet("carreras")]
         public async Task<ActionResult<IEnumerable<Carrera>>> GetCarreras()
         {
-            return await _context.Carreras.ToListAsync();
+            return Ok(await _context.Carreras.ToListAsync());
         }
         // GET: api/v1/administracion/carreras/1
         [SwaggerOperation(Description = "Obiene el listado completo de materia filtrado por idCarrera", Summary = "Obtener listado de materias por carrera")]
@@ -32,7 +32,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         [HttpGet("materias/{idCarrera}")]
         public async Task<ActionResult<IEnumerable<Materia>>> GetMateriasByCarrera(int idCarrera)
         {
-            return await _context.Materias.Where(m => m.IdCarrera == idCarrera).ToListAsync();
+            return Ok(await _context.Materias.Where(m => m.IdCarrera == idCarrera).ToListAsync());
         }
         // GET: api/v1/administracion/carreras
         [SwaggerOperation(Description = "Obiene el listado completo de turnos", Summary = "Obtener listado de turnos")]
@@ -41,7 +41,17 @@ namespace DSSD_2022_TP3.Controllers.v1
         [HttpGet("turnos")]
         public async Task<ActionResult<IEnumerable<Turno>>> GetTurnos()
         {
-            return await _context.Turnos.ToListAsync();
+            return Ok(await _context.Turnos.ToListAsync());
+        }
+
+        // GET: api/v1/administracion/carreras
+        [SwaggerOperation(Description = "Obiene el listado completo de dias de la semana", Summary = "Obtener listado de dias")]
+        [SwaggerResponse(200, "Listado completo")]
+        [ApiExplorerSettings(GroupName = "v1")]
+        [HttpGet("turnos")]
+        public async Task<ActionResult<IEnumerable<Dia>>> GetDias()
+        {
+            return Ok(await _context.Dias.ToListAsync());
         }
     }
 }

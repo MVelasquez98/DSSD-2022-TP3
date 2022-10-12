@@ -21,7 +21,7 @@ namespace DSSD_2022_TP3.Model
         /// <summary>
         /// nombre que identifica a la materia
         /// </summary>
-        [Column("nombre")]
+        [Column("materia")]
         public string Nombre { get; set; }
         /// <summary>
         /// Año de la Carrera

@@ -15,7 +15,7 @@ namespace DSSD_2022_TP3.Model
         /// <summary>
         /// nombre que identifica al tipo de Usuario
         /// </summary>
-        [Column("nombre")]
+        [Column("tipoUsuario")]
         public string Nombre { get; set; }
     }
 }

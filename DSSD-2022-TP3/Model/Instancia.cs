@@ -3,19 +3,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DSSD_2022_TP3.Model
 {
-    [Table("turnos")]
-    public class Turno
+    [Table("instancias")]
+    public class Instancia
     {
         /// <summary>
-        /// Id que identifica al turno
+        /// Id que identifica a la instancia
         /// </summary>
         [Key]
-        [Column("idTurno")]
-        public int IdTurno { get; set; }
+        [Column("idInstancia")]
+        public int IdInstancia { get; set; }
         /// <summary>
-        /// nombre que identifica al turno
+        /// nombre que identifica a la instancia
         /// </summary>
-        [Column("turno")]
+        [Column("instancia")]
         public string Nombre { get; set; }
     }
 }
