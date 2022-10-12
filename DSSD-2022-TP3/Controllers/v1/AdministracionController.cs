@@ -48,7 +48,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         [SwaggerOperation(Description = "Obiene el listado completo de dias de la semana", Summary = "Obtener listado de dias")]
         [SwaggerResponse(200, "Listado completo")]
         [ApiExplorerSettings(GroupName = "v1")]
-        [HttpGet("turnos")]
+        [HttpGet("dias")]
         public async Task<ActionResult<IEnumerable<Dia>>> GetDias()
         {
             return Ok(await _context.Dias.ToListAsync());
