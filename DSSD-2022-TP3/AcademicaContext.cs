@@ -73,5 +73,7 @@ namespace DSSD_2022_TP3
         public DbSet<Carrera> Carreras { get; set; }
         public DbSet<Turno> Turnos { get; set; }
         public DbSet<Dia> Dias { get; set; }
+        public DbSet<Inscripcion> Inscripciones { get; set; }
+        public DbSet<Comision> Comisiones { get; set; }
     }
 }

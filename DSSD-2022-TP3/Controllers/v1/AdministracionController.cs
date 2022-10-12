@@ -53,5 +53,18 @@ namespace DSSD_2022_TP3.Controllers.v1
         {
             return Ok(await _context.Dias.ToListAsync());
         }
+
+        // POST: api/v1/administracion/cursada
+        [ApiExplorerSettings(GroupName = "v1")]
+        [HttpPost("cursada")]
+        public async Task<ActionResult<Comision>> PostCursada(ComisionPost comisionPost)
+        {
+            Inscripcion inscripcion = new Inscripcion() { IdInstancia = 1, Desde = comisionPost.HoraInicio, Hasta = comisionPost.HoraFin, Fecha = "", FechaCierre = "", Anio = comisionPost.Anio, Descripcion="" };
+            var saveInscripcion = _context.Inscripciones.Add(inscripcion);
+            Comision comision = new Comision() { Inscripcion = saveInscripcion.Entity, IdTurno = comisionPost.IdTurno, IdMateria = comisionPost.IdMateria, IdUsuario = comisionPost.IdDocente, IdDia = comisionPost.Dia, NroComision = comisionPost.Cuatrimestre, Anio = comisionPost.Anio, RangoHorario=$"{comisionPost.HoraInicio}-{comisionPost.HoraFin}" };
+            _context.Comisiones.Add(comision);
+            await _context.SaveChangesAsync();
+            return comision;
+        }
     }
 }
