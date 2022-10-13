@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using DSSD_2022_TP3.Model;
 using Microsoft.AspNetCore.Cors;
 using Swashbuckle.AspNetCore.Annotations;
+using DSSD_2022_TP3.Repository;
 
 namespace DSSD_2022_TP3.Controllers.v1
 {

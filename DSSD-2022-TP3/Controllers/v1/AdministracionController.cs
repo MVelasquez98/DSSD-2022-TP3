@@ -1,7 +1,9 @@
 ﻿using DSSD_2022_TP3.Model;
+using DSSD_2022_TP3.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace DSSD_2022_TP3.Controllers.v1
@@ -77,7 +79,22 @@ namespace DSSD_2022_TP3.Controllers.v1
                 .Where(c => c.NroComision == cuatrimestre)
                 .ToListAsync();
             if (comisiones.Count == 0) return NoContent();
-            return Ok(comisiones);
+            List<ComisionResponse> response = new List<ComisionResponse>();
+            foreach (var comision in comisiones)
+            {
+                ComisionResponse x = new ComisionResponse()
+                {
+                    Materia = comision.Materia.Nombre,
+                    Dia = comision.Dia.Nombre,
+                    Horario = comision.RangoHorario,
+                    Turno = comision.Turno.Nombre,
+                    Docente = $"{comision.Usuario.Nombre} {comision.Usuario.Apellido}",
+                    Anio = comision.Anio,
+                    Cuatrimestre = comision.NroComision
+                };
+                response.Add(x);
+            }
+            return Ok(response);
         }
 
         // POST: api/v1/administracion/cursada

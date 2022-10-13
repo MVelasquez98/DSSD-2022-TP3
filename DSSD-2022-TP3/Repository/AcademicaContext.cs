@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace DSSD_2022_TP3
+namespace DSSD_2022_TP3.Repository
 {
     public class AcademicaContext : DbContext
     {
