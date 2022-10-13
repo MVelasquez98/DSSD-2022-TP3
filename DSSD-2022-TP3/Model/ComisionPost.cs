@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace DSSD_2022_TP3.Model
 {

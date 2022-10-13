@@ -58,7 +58,7 @@ namespace DSSD_2022_TP3
             {
                 model.HasKey(m => m.Id);
                 model.HasOne(m => m.Usuario).WithMany().HasForeignKey(m => m.IdUsuario);
-                model.HasOne(m => m.Comision).WithMany().HasForeignKey(m => m.IdComsion);
+                model.HasOne(m => m.Comision).WithMany().HasForeignKey(m => m.IdComision);
             });
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)

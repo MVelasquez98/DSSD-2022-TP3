@@ -22,6 +22,8 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gestion Academica", Version = "v1" });
+    var filePath = Path.Combine(System.AppContext.BaseDirectory, "DSSD-2022-TP3.xml");
+    c.IncludeXmlComments(filePath);
 });
 
 var app = builder.Build();
@@ -30,7 +32,7 @@ app.UseSwagger();
 
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Api V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gestion Academica V1");
 });
 
 app.UseHttpsRedirection();

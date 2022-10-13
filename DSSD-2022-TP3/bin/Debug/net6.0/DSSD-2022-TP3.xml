@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DSSD-2022-TP3</name>
+    </assembly>
+    <members>
+        <member name="P:DSSD_2022_TP3.Model.Carrera.IdCarrera">
+            <summary>
+            Id que identifica a la carrera
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Carrera.Nombre">
+            <summary>
+            nombre que identifica a la carrera
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.IdComision">
+            <summary>
+            Id que identifica a la comision
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Dia.IdDia">
+            <summary>
+            Id que identifica al dia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Dia.Nombre">
+            <summary>
+            nombre que identifica al dia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Inscripcion.IdInscripcion">
+            <summary>
+            Id que identifica a la inscripcion
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Inscripcion.IdInstancia">
+            <summary>
+            Id que identifica a la instancia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Inscripcion.Descripcion">
+            <summary>
+            descripcion de la inscripcion
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Instancia.IdInstancia">
+            <summary>
+            Id que identifica a la instancia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Instancia.Nombre">
+            <summary>
+            nombre que identifica a la instancia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Materia.IdMateria">
+            <summary>
+            Id que identifica a la materia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Materia.IdCarrera">
+            <summary>
+            Id que identifica a la carrera de la materia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Materia.Nombre">
+            <summary>
+            nombre que identifica a la materia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Materia.AnioCarrera">
+            <summary>
+            Año de la Carrera
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.TipoUsuario.IdTipoUsuario">
+            <summary>
+            Id que identifica al Tipo de Usuario
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.TipoUsuario.Nombre">
+            <summary>
+            nombre que identifica al tipo de Usuario
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Turno.IdTurno">
+            <summary>
+            Id que identifica al turno
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Turno.Nombre">
+            <summary>
+            nombre que identifica al turno
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.IdUsuario">
+             <summary>
+             Id que identifica al usuario
+             </summary>
+            
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.Nombre">
+            <summary>
+            nombre que identifica al usuario
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.Apellido">
+            <summary>
+            apellido que identifica al usuario
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.Dni">
+            <summary>
+            dni que identifica al usuario
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.Username">
+            <summary>
+            usuario que identifica al usuario (basado en el nombre y apellido de la persona)
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.Clave">
+            <summary>
+            clave que identifica al usuario (contraseña temporal de un solo uso que debe cambiarse al ingresar al sistema por primera vez) 
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.Correo">
+            <summary>
+            correo como dato de contacto del usuario
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.Celular">
+            <summary>
+            celular como dato de contacto del usuario
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.IdCarrera">
+            <summary>
+            Id que identifica a la carrera del usuario
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Usuario.IdTipoUsuario">
+            <summary>
+            Id que identifica al Tipo de usuario
+            </summary>
+        </member>
+    </members>
+</doc>

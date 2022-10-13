@@ -11,8 +11,8 @@ namespace DSSD_2022_TP3.Model
         public int Id { get; set; }
         [Column("idUsuario")]
         public int IdUsuario { get; set; }
-        [Column("idComsion")]
-        public int IdComsion { get; set; }
+        [Column("idComision")]
+        public int IdComision { get; set; }
         [Column("nota")]
         public int Nota { get; set; }
         [Column("fecha")]

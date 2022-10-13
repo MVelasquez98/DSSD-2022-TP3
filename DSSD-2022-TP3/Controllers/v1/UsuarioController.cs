@@ -67,7 +67,7 @@ namespace DSSD_2022_TP3.Controllers.v1
 
             if (estudiante == null)
             {
-                return StatusCode(204);
+                return NotFound();
             }
 
             return estudiante;
@@ -94,7 +94,7 @@ namespace DSSD_2022_TP3.Controllers.v1
             {
                 if (!UsuarioExists(id))
                 {
-                    return StatusCode(204);
+                    return NotFound();
                 }
                 else
                 {
@@ -122,7 +122,7 @@ namespace DSSD_2022_TP3.Controllers.v1
             var estudiante = await _context.Usuarios.FindAsync(id);
             if (estudiante == null)
             {
-                return StatusCode(204);
+                return NotFound();
             }
 
             _context.Usuarios.Remove(estudiante);

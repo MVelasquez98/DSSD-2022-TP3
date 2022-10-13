@@ -5,6 +5,7 @@ C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\DSSD-202
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\DSSD-2022-TP3.runtimeconfig.json
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\DSSD-2022-TP3.dll
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\DSSD-2022-TP3.pdb
+C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\DSSD-2022-TP3.xml
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\Google.Protobuf.dll
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\Humanizer.dll
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\bin\Debug\net6.0\K4os.Compression.LZ4.dll
@@ -269,6 +270,7 @@ C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\obj\Debug\net6.0\scopedcs
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\obj\Debug\net6.0\DSSD-2022-TP3.csproj.CopyComplete
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\obj\Debug\net6.0\DSSD-2022-TP3.dll
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\obj\Debug\net6.0\refint\DSSD-2022-TP3.dll
+C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\obj\Debug\net6.0\DSSD-2022-TP3.xml
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\obj\Debug\net6.0\DSSD-2022-TP3.pdb
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\obj\Debug\net6.0\DSSD-2022-TP3.genruntimeconfig.cache
 C:\Users\Mati\source\repos\DSSD-2022-TP3\DSSD-2022-TP3\obj\Debug\net6.0\ref\DSSD-2022-TP3.dll
