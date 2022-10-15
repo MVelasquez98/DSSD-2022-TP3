@@ -85,7 +85,6 @@ namespace DSSD_2022_TP3.Controllers.v1
             }
 
             var userUpdate = _context.Entry(usuario).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
