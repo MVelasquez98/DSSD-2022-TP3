@@ -28,10 +28,10 @@ namespace DSSD_2022_TP3.Model
         public string Desde { get; set; }
         [Column("hasta")]
         public string Hasta { get; set; }
-        [Column("fecha")]
-        public string Fecha { get; set; }
-        [Column("fechaCierre")]
-        public string FechaCierre { get; set; }
+        [Column("fechaInicio")]
+        public string FechaInicio { get; set; }
+        [Column("fechaFin")]
+        public string FechaFin { get; set; }
         [Column("anio")]
         public string Anio { get; set; }
         [JsonIgnore]

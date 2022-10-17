@@ -106,7 +106,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         // POST: api/v1/usuario
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(UsuarioPost usuario)
+        public async Task<ActionResult<Usuario>> PostUsuario(UsuarioDTO usuario)
         {
             Usuario userSave = new Usuario(usuario.Nombre, usuario.Apellido, usuario.Dni, usuario.Correo, usuario.Celular, usuario.IdCarrera, usuario.IdTipoUsuario);
             var userAdd = _context.Usuarios.Add(userSave);

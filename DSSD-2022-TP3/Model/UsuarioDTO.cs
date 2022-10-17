@@ -2,7 +2,7 @@
 
 namespace DSSD_2022_TP3.Model
 {
-    public class UsuarioPost
+    public class UsuarioDTO
     {
         [JsonProperty("nombre")]
         public string Nombre { get; set; }

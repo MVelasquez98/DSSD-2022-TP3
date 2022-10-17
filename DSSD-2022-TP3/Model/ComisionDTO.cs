@@ -3,7 +3,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace DSSD_2022_TP3.Model
 {
-    public class ComisionPost
+    public class ComisionDTO
     {
         [JsonProperty("idMateria")]
         public int IdMateria { get; set; }
@@ -21,5 +21,9 @@ namespace DSSD_2022_TP3.Model
         public string Anio { get; set; }
         [JsonProperty("cuatrimestre")]
         public int Cuatrimestre { get; set; }
+        [JsonProperty("idInscripcion")]
+        public int IdInscripcion { get; set; }
+        [JsonProperty("fecha")]
+        public string Fecha { get; set; }
     }
 }

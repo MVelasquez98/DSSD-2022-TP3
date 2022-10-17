@@ -4,6 +4,11 @@
         <name>DSSD-2022-TP3</name>
     </assembly>
     <members>
+        <member name="P:DSSD_2022_TP3.Model.ExamenDTO.HoraInicio">
+            <summary>
+            Hora de inicio de examen con formato "hh:mm"
+            </summary>
+        </member>
         <member name="P:DSSD_2022_TP3.Model.Carrera.IdCarrera">
             <summary>
             Id que identifica a la carrera

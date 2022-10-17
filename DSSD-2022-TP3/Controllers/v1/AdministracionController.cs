@@ -64,50 +64,98 @@ namespace DSSD_2022_TP3.Controllers.v1
             return Ok(dias);
         }
 
-        // GET: api/v1/administracion/cursada/{}
-        [SwaggerOperation(Description = "Obiene el listado completo de cursadas por cuatrimestre", Summary = "Obtener listado de cursadas")]
-        [SwaggerResponse(200, "Listado completo")]
+        // POST: api/v1/administracion/cursada
         [ApiExplorerSettings(GroupName = "v1")]
-        [HttpGet("cursada/{cuatrimestre}")]
-        public async Task<ActionResult<IEnumerable<ComisionPost>>> GetCursadasByCuatrimestre(int cuatrimestre)
+        [HttpPost("inscripcion")]
+        public async Task<ActionResult<InscripcionDTO>> PostInscripcion(InscripcionDTO inscripcionDto)
         {
-            var comisiones = await _context.Comisiones.Include(c => c.Usuario)
-                .Include(c => c.Turno)
-                .Include(c => c.Materia)
-                .Include(c => c.Usuario)
-                .Include(c => c.Dia)
-                .Where(c => c.NroComision == cuatrimestre)
-                .ToListAsync();
-            if (comisiones.Count == 0) return NoContent();
-            List<ComisionResponse> response = new List<ComisionResponse>();
-            foreach (var comision in comisiones)
+            int cantInscripciones = _context.Inscripciones.ToList().Count;
+            Inscripcion inscripcion = new Inscripcion()
             {
-                ComisionResponse x = new ComisionResponse()
-                {
-                    Materia = comision.Materia.Nombre,
-                    Dia = comision.Dia.Nombre,
-                    Horario = comision.RangoHorario,
-                    Turno = comision.Turno.Nombre,
-                    Docente = $"{comision.Usuario.Nombre} {comision.Usuario.Apellido}",
-                    Anio = comision.Anio,
-                    Cuatrimestre = comision.NroComision
-                };
-                response.Add(x);
-            }
-            return Ok(response);
+                IdInstancia = inscripcionDto.Instancia,
+                Descripcion = inscripcionDto.Descripcion,
+                Desde = inscripcionDto.Desde,
+                Hasta = inscripcionDto.Hasta,
+                FechaInicio = inscripcionDto.FechaInicio,
+                FechaFin = inscripcionDto.FechaFin,
+                Anio = DateTime.Parse(inscripcionDto.FechaInicio).Year.ToString()
+            };
+            _context.Inscripciones.Add(inscripcion);
+            await _context.SaveChangesAsync();
+            return inscripcionDto;
         }
 
         // POST: api/v1/administracion/cursada
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost("cursada")]
-        public async Task<ActionResult<ComisionPost>> PostCursada(ComisionPost comisionPost)
+        public async Task<ActionResult<ComisionDTO>> PostCursada(ComisionDTO comisionDto)
         {
-            Inscripcion inscripcion = new Inscripcion() { IdInstancia = 1, Desde = comisionPost.HoraInicio, Hasta = comisionPost.HoraFin, Fecha = "", FechaCierre = "", Anio = comisionPost.Anio, Descripcion = "" };
-            var saveInscripcion = _context.Inscripciones.Add(inscripcion);
-            Comision comision = new Comision() { Inscripcion = saveInscripcion.Entity, IdTurno = comisionPost.IdTurno, IdMateria = comisionPost.IdMateria, IdUsuario = comisionPost.IdDocente, IdDia = comisionPost.Dia, NroComision = comisionPost.Cuatrimestre, Anio = comisionPost.Anio, RangoHorario = $"{comisionPost.HoraInicio}-{comisionPost.HoraFin}" };
+            int cantInscripciones = _context.Inscripciones.ToList().Count;
+            Comision comision = new Comision()
+            {
+                IdInscripcion = comisionDto.IdInscripcion,
+                IdTurno = comisionDto.IdTurno,
+                IdMateria = comisionDto.IdMateria,
+                IdUsuario = comisionDto.IdDocente,
+                IdDia = comisionDto.Dia,
+                NroComision = int.Parse($"{comisionDto.IdMateria}{cantInscripciones}"),
+                Anio = comisionDto.Anio,
+                RangoHorario = $"{comisionDto.HoraInicio}-{comisionDto.HoraFin}",
+                Fecha = comisionDto.Fecha
+            };
             _context.Comisiones.Add(comision);
             await _context.SaveChangesAsync();
-            return comisionPost;
+            return comisionDto;
+        }
+        // POST: api/v1/administracion/examen
+        [ApiExplorerSettings(GroupName = "v1")]
+        [HttpPost("examen")]
+        public async Task<ActionResult<ExamenDTO>> PostExamen(ExamenDTO examenDTO)
+        {
+            int cantInscripciones = _context.Inscripciones.ToList().Count;
+            Comision comision = new Comision()
+            {
+                IdInscripcion = examenDTO.IdInscripcion,
+                IdMateria = examenDTO.IdMateria,
+                IdUsuario = examenDTO.IdDocente,
+                NroComision = int.Parse($"{examenDTO.IdMateria}{cantInscripciones}"),
+                Anio = examenDTO.Anio,
+                RangoHorario = examenDTO.HoraInicio,
+                Fecha = examenDTO.Fecha
+            };
+            _context.Comisiones.Add(comision);
+            await _context.SaveChangesAsync();
+            return examenDTO;
+        }
+        //GET: api/administracion/inscripcion$idInstancia=<idInstancia>&fecha=<fechaActual>
+        [SwaggerOperation(Description = "Obiene el listado completo de inscripciones de una instancia y fecha determinada", Summary = "Obtener listado de inscripciones por fecha e instancia")]
+        [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "No existen resultados bajo esos criterios de busqueda")]
+        [ApiExplorerSettings(GroupName = "v1")]
+        [HttpGet("inscripcion")]
+        public async Task<ActionResult<IEnumerable<InscripcionDTO>>> GetInscripciones(int idInstancia, string fechaActual)
+        {
+
+            var inscripcionesSegunInstancia = _context.Inscripciones.Where(i => i.IdInstancia == idInstancia).ToList();
+            var inscripciones = inscripcionesSegunInstancia.Where(i => DateTime.Parse(fechaActual) >= DateTime.Parse(i.Desde)
+            && DateTime.Parse(fechaActual) <= DateTime.Parse(i.Hasta)).ToList();
+
+            if (inscripciones.Count == 0) return NoContent();
+            List<InscripcionDTO> result = new List<InscripcionDTO>();
+            foreach (var inscripcion in inscripciones)
+            {
+                InscripcionDTO inscripcionDTO = new InscripcionDTO()
+                {
+                    Descripcion = inscripcion.Descripcion,
+                    Desde = inscripcion.Desde,
+                    FechaFin = inscripcion.FechaFin,
+                    FechaInicio = inscripcion.FechaInicio,
+                    Hasta = inscripcion.Hasta,
+                    Instancia = inscripcion.IdInstancia
+                };
+                result.Add(inscripcionDTO);
+            }
+            return Ok(result);
         }
     }
 }
