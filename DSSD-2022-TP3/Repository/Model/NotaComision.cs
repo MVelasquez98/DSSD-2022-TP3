@@ -7,7 +7,7 @@ namespace DSSD_2022_TP3.Model
     public class NotaComision
     {
         [Key]
-        [Column("idComision")]
+        [Column("idNotaComision")]
         public int Id { get; set; }
         [Column("idUsuario")]
         public int IdUsuario { get; set; }
@@ -15,6 +15,11 @@ namespace DSSD_2022_TP3.Model
         public int IdTipoNota { get; set; }
         [Column("nota")]
         public string Nota { get; set; }
+        [Column("fecha")]
+        public string Fecha { get; set; }
+        [Column("idComision")]
+        public int IdComision { get; set; }
+        public Comision Comision { get; set; }
         public Usuario Usuario { get; set; }
         public TipoNota TipoNota { get; set; }
     }

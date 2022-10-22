@@ -53,12 +53,8 @@ namespace DSSD_2022_TP3.Repository
                 model.HasKey(m => m.Id);
                 model.HasOne(m => m.Usuario).WithMany().HasForeignKey(m => m.IdUsuario);
                 model.HasOne(m => m.TipoNota).WithMany().HasForeignKey(m => m.IdTipoNota);
-            });
-            modelBuilder.Entity<HistorialAcademico>(model =>
-            {
-                model.HasKey(m => m.Id);
-                model.HasOne(m => m.Usuario).WithMany().HasForeignKey(m => m.IdUsuario);
                 model.HasOne(m => m.Comision).WithMany().HasForeignKey(m => m.IdComision);
+
             });
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
