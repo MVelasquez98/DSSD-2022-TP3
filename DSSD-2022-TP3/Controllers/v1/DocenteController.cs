@@ -44,17 +44,22 @@ namespace DSSD_2022_TP3.Controllers.v1
         [SwaggerResponse(204, "Listado vacio")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("alumnos/cursada")]
-        public async Task<ActionResult<IEnumerable<MateriaDTO>>> GetAlumnos(int idDocente)
+        public async Task<ActionResult<IEnumerable<DetalleInscripcionDTO>>> GetAlumnos(int idDocente)
         {
-            var alumnos = await _context.Comisiones
-                .Include(c => c.Usuario)
-                .Include(c => c.Materia).ThenInclude(m => m.Carrera)
-                .Include(c => c.Turno)
-                .Include(c => c.Inscripcion)
-                .Where(c => c.IdUsuario == idDocente
-                && c.Usuario.IdTipoUsuario == ((int)TiposUsuario.Estudiante)
-                && c.Inscripcion.IdInstancia == ((int)TipoInstancia.Cursada))
-                .Select(c => new { c.Materia.IdMateria, c.Materia.Nombre, carrera = c.Materia.Carrera.Nombre, turno = c.Turno.Nombre, c.RangoHorario, c.NroComision, c.Materia.AnioCarrera })
+            var alumnos = await _context.DetalleInscripciones
+                .Include(d => d.Usuario)
+                .Include(d => d.Inscripcion)
+                .Include(d => d.Comision).ThenInclude(c => c.Materia)
+                .Include(d => d.Comision).ThenInclude(c => c.Usuario)
+                .Where(d => d.Comision.IdUsuario == idDocente
+                && d.Inscripcion.IdInstancia == ((int)TipoInstancia.Cursada))
+                .GroupBy(d => d.Comision.Materia.IdMateria)
+                .Select(x => new DetalleInscripcionDTO()
+                {
+                    IdMateria = x.Select(a => a.Comision).FirstOrDefault().IdMateria,
+                    NombreMateria = x.Select(a => a.Comision.Materia).FirstOrDefault().Nombre,
+                    Alumnos = x.Select(x => new AlumnoDto() { Nombre = x.Usuario.Nombre, Apellido = x.Usuario.Apellido }).ToList()
+                })
                 .ToListAsync();
             if (alumnos.Count == 0) return NoContent();
             return Ok(alumnos);
