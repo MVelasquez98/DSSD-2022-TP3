@@ -1,10 +1,10 @@
 ﻿using DSSD_2022_TP3.Model;
 using DSSD_2022_TP3.Repository;
 using DSSD_2022_TP3.Repository.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DSSD_2022_TP3.Controllers.v1
 {
@@ -16,6 +16,18 @@ namespace DSSD_2022_TP3.Controllers.v1
         public DocenteController(AcademicaContext context)
         {
             _context = context;
+        }
+        // GET: api/v1/docente/tipoMateria
+        [SwaggerOperation(Description = "Obiene el listado completo de los tipos de nota", Summary = "Obtener listado de tipos de nota")]
+        [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "Listado vacio")]
+        [ApiExplorerSettings(GroupName = "v1")]
+        [HttpGet("tipoNota")]
+        public async Task<ActionResult<IEnumerable<TipoNota>>> GetTiposDeNota()
+        {
+            var tiposDeNota = await _context.TipoNotas.ToListAsync();
+            if (tiposDeNota.Count == 0) return NoContent();
+            return Ok(tiposDeNota);
         }
         // GET: api/v1/docente/materias?idDocente=1
         [SwaggerOperation(Description = "Obiene el listado completo de materias asignadas a un docente", Summary = "Obtener listado de materias asignadas")]
@@ -63,6 +75,23 @@ namespace DSSD_2022_TP3.Controllers.v1
                 .ToListAsync();
             if (alumnos.Count == 0) return NoContent();
             return Ok(alumnos);
+        }
+        // POST: api/v1/docente/notaComision
+        [ApiExplorerSettings(GroupName = "v1")]
+        [HttpPost("notaComision")]
+        public async Task<ActionResult> PostInscripcion(NotaComisionDTO notaComisionDto)
+        {
+            NotaComision notaComision = new NotaComision()
+            {
+                IdUsuario = notaComisionDto.IdEstudiante,
+                IdTipoNota = notaComisionDto.IdTipoNota,
+                Nota = notaComisionDto.Nota.ToString(),
+                Fecha = notaComisionDto.Fecha,
+                IdComision = notaComisionDto.IdComision,
+            };
+            _context.NotasComisiones.Add(notaComision);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

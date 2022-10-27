@@ -72,5 +72,7 @@ namespace DSSD_2022_TP3.Repository
         public DbSet<Inscripcion> Inscripciones { get; set; }
         public DbSet<Comision> Comisiones { get; set; }
         public DbSet<DetalleInscripcion> DetalleInscripciones { get; set; }
+        public DbSet<TipoNota> TipoNotas { get; set; }
+        public DbSet<NotaComision> NotasComisiones { get; set; }
     }
 }
