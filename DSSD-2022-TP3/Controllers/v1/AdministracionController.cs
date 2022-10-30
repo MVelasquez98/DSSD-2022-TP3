@@ -128,15 +128,16 @@ namespace DSSD_2022_TP3.Controllers.v1
             return examenDTO;
         }
         //GET: api/administracion/inscripcion$idInstancia=<idInstancia>&fecha=<fechaActual>
-        [SwaggerOperation(Description = "Obiene el listado completo de inscripciones de una instancia y fecha determinada", Summary = "Obtener listado de inscripciones por fecha e instancia")]
+        [SwaggerOperation(Description = "Obiene el listado completo de inscripciones de una instancia y fecha determinada, si la fecha es nula se recibe el listado completo de inscripciones", Summary = "Obtener listado de inscripciones por fecha e instancia")]
         [SwaggerResponse(200, "Listado completo")]
         [SwaggerResponse(204, "No existen resultados bajo esos criterios de busqueda")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("inscripcion")]
-        public async Task<ActionResult<IEnumerable<InscripcionDTO>>> GetInscripciones(int idInstancia, string fechaActual)
+        public async Task<ActionResult> GetInscripciones(int idInstancia, string? fechaActual)
         {
 
             var inscripcionesSegunInstancia = _context.Inscripciones.Where(i => i.IdInstancia == idInstancia).ToList();
+            if (fechaActual == null) return Ok(inscripcionesSegunInstancia);
             var inscripciones = inscripcionesSegunInstancia.Where(i => DateTime.Parse(fechaActual) >= DateTime.Parse(i.Desde)
             && DateTime.Parse(fechaActual) <= DateTime.Parse(i.Hasta)).ToList();
 
