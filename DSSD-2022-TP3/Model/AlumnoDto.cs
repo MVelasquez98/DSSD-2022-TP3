@@ -4,6 +4,10 @@ namespace DSSD_2022_TP3.Model
 {
     public class AlumnoDto
     {
+        [JsonProperty("idEstudiante")]
+        public int IdEstudiante { get; set; }
+        [JsonProperty("dni")]
+        public string Dni { get; set; }
         [JsonProperty("nombre")]
         public string Nombre { get; set; }
         [JsonProperty("apellido")]

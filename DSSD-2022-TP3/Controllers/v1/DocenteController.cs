@@ -79,7 +79,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         [SwaggerResponse(204, "Listado vacio")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("alumnos/cursada")]
-        public async Task<ActionResult<DetalleInscripcionDTO>> GetAlumnos(int idDocente, int idMateria)
+        public async Task<ActionResult<DetalleInscripcionDTO>> GetAlumnos(int idDocente, int idComision)
         {
             var alumno = await _context.DetalleInscripciones
                 .Include(d => d.Usuario)
@@ -88,7 +88,7 @@ namespace DSSD_2022_TP3.Controllers.v1
                 .Include(d => d.Comision).ThenInclude(c => c.Usuario)
                 .Where(d => d.Comision.IdUsuario == idDocente
                 && d.Inscripcion.IdInstancia == ((int)TipoInstancia.Cursada)
-                && d.Comision.Materia.IdMateria == idMateria)
+                && d.Comision.IdComision == idComision)
                 .GroupBy(d => d.Comision.Materia.IdMateria)
                 .Select(x => new DetalleInscripcionDTO()
                 {
@@ -96,6 +96,8 @@ namespace DSSD_2022_TP3.Controllers.v1
                     NombreMateria = x.Select(a => a.Comision.Materia).FirstOrDefault().Nombre,
                     Alumnos = x.Select(x => new AlumnoDto()
                     {
+                        IdEstudiante = x.Usuario.IdUsuario,
+                        Dni = x.Usuario.Dni,
                         Nombre = x.Usuario.Nombre,
                         Apellido = x.Usuario.Apellido,
                         PrimerParcial = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 1).FirstOrDefault().Nota,
