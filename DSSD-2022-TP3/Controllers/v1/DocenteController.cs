@@ -17,6 +17,29 @@ namespace DSSD_2022_TP3.Controllers.v1
         {
             _context = context;
         }
+        // GET: api/v1/docente/comision
+        [SwaggerOperation(Description = "Obiene el listado completo de las comisiones asociado a un docente", Summary = "Obtener listado de comisiones de un docente")]
+        [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "Listado vacio")]
+        [ApiExplorerSettings(GroupName = "v1")]
+        [HttpGet("comision")]
+        public async Task<ActionResult<IEnumerable<ComisionDocenteDTO>>> GetComisiones(int idDocente)
+        {
+            var comisiones = await _context.Comisiones.Include(c => c.Inscripcion)
+                            .Include(c => c.Materia)
+                            .Where(c => c.IdUsuario == idDocente).Select(x => new ComisionDocenteDTO
+                            {
+                                IdComision = x.IdComision,
+                                NombreMateria = x.Materia.Nombre,
+                                DescripcionInscripcion = x.Inscripcion.Descripcion,
+                                TipoInstancia = x.Inscripcion.IdInstancia,
+                                FechaInicio = x.Inscripcion.FechaInicio,
+                                FechaFin = x.Inscripcion.FechaFin
+
+                            }).ToListAsync();
+            if (comisiones.Count == 0) return NoContent();
+            return Ok(comisiones);
+        }
         // GET: api/v1/docente/tipoMateria
         [SwaggerOperation(Description = "Obiene el listado completo de los tipos de nota", Summary = "Obtener listado de tipos de nota")]
         [SwaggerResponse(200, "Listado completo")]
@@ -56,41 +79,54 @@ namespace DSSD_2022_TP3.Controllers.v1
         [SwaggerResponse(204, "Listado vacio")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("alumnos/cursada")]
-        public async Task<ActionResult<IEnumerable<DetalleInscripcionDTO>>> GetAlumnos(int idDocente)
+        public async Task<ActionResult<DetalleInscripcionDTO>> GetAlumnos(int idDocente, int idMateria)
         {
-            var alumnos = await _context.DetalleInscripciones
+            var alumno = await _context.DetalleInscripciones
                 .Include(d => d.Usuario)
                 .Include(d => d.Inscripcion)
                 .Include(d => d.Comision).ThenInclude(c => c.Materia)
                 .Include(d => d.Comision).ThenInclude(c => c.Usuario)
                 .Where(d => d.Comision.IdUsuario == idDocente
-                && d.Inscripcion.IdInstancia == ((int)TipoInstancia.Cursada))
+                && d.Inscripcion.IdInstancia == ((int)TipoInstancia.Cursada)
+                && d.Comision.Materia.IdMateria == idMateria)
                 .GroupBy(d => d.Comision.Materia.IdMateria)
                 .Select(x => new DetalleInscripcionDTO()
                 {
                     IdMateria = x.Select(a => a.Comision).FirstOrDefault().IdMateria,
                     NombreMateria = x.Select(a => a.Comision.Materia).FirstOrDefault().Nombre,
-                    Alumnos = x.Select(x => new AlumnoDto() { Nombre = x.Usuario.Nombre, Apellido = x.Usuario.Apellido }).ToList()
+                    Alumnos = x.Select(x => new AlumnoDto()
+                    {
+                        Nombre = x.Usuario.Nombre,
+                        Apellido = x.Usuario.Apellido,
+                        PrimerParcial = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 1).FirstOrDefault().Nota,
+                        SegundoParcial = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 2).FirstOrDefault().Nota,
+                        NotaCursada = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 10).FirstOrDefault().Nota,
+                        NotaFinal = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 11).FirstOrDefault().Nota,
+                        NotaDefinitiva = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 12).FirstOrDefault().Nota
+                    }).ToList()
                 })
-                .ToListAsync();
-            if (alumnos.Count == 0) return NoContent();
-            return Ok(alumnos);
+                .FirstOrDefaultAsync();
+            if (alumno == null) return NotFound();
+            return Ok(alumno);
         }
         // POST: api/v1/docente/notaComision
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost("notaComision")]
-        public async Task<ActionResult> PostInscripcion(NotaComisionDTO notaComisionDto)
+        public async Task<ActionResult> PostInscripcion(List<NotaComisionDTO> notas)
         {
-            NotaComision notaComision = new NotaComision()
+            foreach (var notaComisionDto in notas)
             {
-                IdUsuario = notaComisionDto.IdEstudiante,
-                IdTipoNota = notaComisionDto.IdTipoNota,
-                Nota = notaComisionDto.Nota.ToString(),
-                Fecha = notaComisionDto.Fecha,
-                IdComision = notaComisionDto.IdComision,
-            };
-            _context.NotasComisiones.Add(notaComision);
-            await _context.SaveChangesAsync();
+                NotaComision notaComision = new NotaComision()
+                {
+                    IdUsuario = notaComisionDto.IdEstudiante,
+                    IdTipoNota = notaComisionDto.IdTipoNota,
+                    Nota = notaComisionDto.Nota.ToString(),
+                    Fecha = notaComisionDto.Fecha,
+                    IdComision = notaComisionDto.IdComision,
+                };
+                _context.NotasComisiones.Add(notaComision);
+                await _context.SaveChangesAsync();
+            }
             return Ok();
         }
     }
