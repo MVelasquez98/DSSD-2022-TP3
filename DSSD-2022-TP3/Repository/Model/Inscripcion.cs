@@ -8,30 +8,45 @@ namespace DSSD_2022_TP3.Model
     public class Inscripcion
     {
         /// <summary>
-        /// Id que identifica a la inscripcion
+        /// ID que refiere a un llamado a inscripción
         /// </summary>
         [Key]
         [Column("idInscripcion")]
         public int IdInscripcion { get; set; }
 
         /// <summary>
-        /// Id que identifica a la instancia
+        /// ID que refiere a una instancia de inscripción
         /// </summary>
         [Column("idInstancia")]
         public int IdInstancia { get; set; }
         /// <summary>
-        /// descripcion de la inscripcion
+        /// Cadena que almacena la denominación del llamado a inscripción
         /// </summary>
         [Column("descripcion")]
         public string Descripcion { get; set; }
+        /// <summary>
+        /// Cadena que almacena la fecha de inicio del llamado de inscripción
+        /// </summary>
         [Column("desde")]
         public string Desde { get; set; }
+        /// <summary>
+        /// Cadena que almacena la fecha de finalización del llamado de inscrición
+        /// </summary>
         [Column("hasta")]
         public string Hasta { get; set; }
+        /// <summary>
+        /// Cadena que almacena la fecha de inicio para la carga de notas
+        /// </summary>
         [Column("fechaInicio")]
         public string FechaInicio { get; set; }
+        /// <summary>
+        /// Cadena que almacena la fecha de cierre para la carga de notas
+        /// </summary>
         [Column("fechaFin")]
         public string FechaFin { get; set; }
+        /// <summary>
+        /// Cadena que almacena el año correspondiente al ciclo lectivo del llamado a inscripción
+        /// </summary>
         [Column("anio")]
         public string Anio { get; set; }
         [JsonIgnore]

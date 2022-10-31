@@ -8,23 +8,23 @@ namespace DSSD_2022_TP3.Model
     public class Materia
     {
         /// <summary>
-        /// Id que identifica a la materia
+        /// ID que refiere a una materia
         /// </summary>
         [Key]
         [Column("idMateria")]
         public int IdMateria { get; set; }
         /// <summary>
-        /// Id que identifica a la carrera de la materia
+        /// ID que refiere a una carrera
         /// </summary>
         [Column("idCarrera")]
         public int IdCarrera { get; set; }
         /// <summary>
-        /// nombre que identifica a la materia
+        /// Cadena que almacena la denominacion de la materia
         /// </summary>
         [Column("materia")]
         public string Nombre { get; set; }
         /// <summary>
-        /// Año de la Carrera
+        /// Cadena que almacena el año al cual pertenece la materia dentro del plan de estudio
         /// </summary>
         [Column("anioCarrera")]
         public int AnioCarrera { get; set; }

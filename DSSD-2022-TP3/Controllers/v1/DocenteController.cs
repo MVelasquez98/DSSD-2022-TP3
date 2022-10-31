@@ -21,6 +21,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         [SwaggerOperation(Description = "Obiene el listado completo de las comisiones asociado a un docente", Summary = "Obtener listado de comisiones de un docente")]
         [SwaggerResponse(200, "Listado completo")]
         [SwaggerResponse(204, "Listado vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("comision")]
         public async Task<ActionResult<IEnumerable<ComisionDocenteDTO>>> GetComisiones(int idDocente)
@@ -44,6 +45,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         [SwaggerOperation(Description = "Obiene el listado completo de los tipos de nota", Summary = "Obtener listado de tipos de nota")]
         [SwaggerResponse(200, "Listado completo")]
         [SwaggerResponse(204, "Listado vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("tipoNota")]
         public async Task<ActionResult<IEnumerable<TipoNota>>> GetTiposDeNota()
@@ -56,6 +58,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         [SwaggerOperation(Description = "Obiene el listado completo de materias asignadas a un docente", Summary = "Obtener listado de materias asignadas")]
         [SwaggerResponse(200, "Listado completo")]
         [SwaggerResponse(204, "Listado vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("materias")]
         public async Task<ActionResult<IEnumerable<MateriaDTO>>> GetMaterias(int idDocente)
@@ -74,9 +77,10 @@ namespace DSSD_2022_TP3.Controllers.v1
             return Ok(materias);
         }
         // GET: api/v1/docente/alumnos/cursada?idDocente=1
-        [SwaggerOperation(Description = "Obiene el listado completo de alumnos de cada materia asignada a un docente", Summary = "Obtener listado de alumnos")]
+        [SwaggerOperation(Description = "Obiene el listado completo de alumnos de cada materia asignada a un docente de una comision del tipo cursada determinada", Summary = "Obtener listado de alumnos")]
         [SwaggerResponse(200, "Listado completo")]
         [SwaggerResponse(204, "Listado vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("alumnos/cursada")]
         public async Task<ActionResult<DetalleInscripcionDTO>> GetAlumnos(int idDocente, int idComision)
@@ -112,6 +116,9 @@ namespace DSSD_2022_TP3.Controllers.v1
             return Ok(alumno);
         }
         // POST: api/v1/docente/notaComision
+        [SwaggerOperation(Description = "Guardar nota comision del tipo instancia o examen final", Summary = "Guardar nota comision")]
+        [SwaggerResponse(200, "Nota de comision guardada")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost("notaComision")]
         public async Task<ActionResult> PostNotas(List<NotaComisionDTO> notas)

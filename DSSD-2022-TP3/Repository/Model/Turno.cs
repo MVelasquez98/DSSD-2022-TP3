@@ -7,13 +7,13 @@ namespace DSSD_2022_TP3.Model
     public class Turno
     {
         /// <summary>
-        /// Id que identifica al turno
+        /// ID que refiere a un turno
         /// </summary>
         [Key]
         [Column("idTurno")]
         public int IdTurno { get; set; }
         /// <summary>
-        /// nombre que identifica al turno
+        /// Cadena que almacena la denominacion del turno
         /// </summary>
         [Column("turno")]
         public string Nombre { get; set; }

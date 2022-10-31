@@ -7,13 +7,13 @@ namespace DSSD_2022_TP3.Model
     public class TipoUsuario
     {
         /// <summary>
-        /// Id que identifica al Tipo de Usuario
+        /// ID que refiere a un tipo de usuario
         /// </summary>
         [Key]
         [Column("idTipoUsuario")]
         public int IdTipoUsuario { get; set; }
         /// <summary>
-        /// nombre que identifica al tipo de Usuario
+        /// Cadena que almacena la denominacion del tipo de usuario
         /// </summary>
         [Column("tipoUsuario")]
         public string Nombre { get; set; }

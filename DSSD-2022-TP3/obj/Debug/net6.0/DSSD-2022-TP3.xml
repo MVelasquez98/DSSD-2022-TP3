@@ -11,97 +11,237 @@
         </member>
         <member name="P:DSSD_2022_TP3.Model.Carrera.IdCarrera">
             <summary>
-            Id que identifica a la carrera
+            ID que refiere a una carrera
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Carrera.Nombre">
             <summary>
-            nombre que identifica a la carrera
+            Cadena que almacena el nombre de la carrera
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Comision.IdComision">
             <summary>
-            Id que identifica a la comision
+            ID que refiere a una comision
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.IdInscripcion">
+            <summary>
+            ID que refiere a un llamado a inscripcion
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.IdTurno">
+            <summary>
+            ID que refiere a un turno
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.IdMateria">
+            <summary>
+            ID que refiere a una materia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.IdUsuario">
+            <summary>
+            ID que refiere a un usuario del tipo docente
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.IdDia">
+            <summary>
+            ID que refiere a un dia de la semana
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.RangoHorario">
+            <summary>
+            Cadena que almacena el horario de cursada u horario de inicio de mesa de exámen
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.NroComision">
+            <summary>
+            Cadena que almacena el numero de dictado o número de evaluación de la materia
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.Anio">
+            <summary>
+            Cadena que almacena el año correspondiente al ciclo lectivo de la comision
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Comision.Fecha">
+            <summary>
+            Cadena que almacena fecha de inicio de cursada o fecha de mesa de exámen
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.DetalleInscripcion.Id">
+            <summary>
+            ID que refiere a una inscripcion a comision
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.DetalleInscripcion.IdInscripcion">
+            <summary>
+            ID que refiere a un llamado a inscripcion
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.DetalleInscripcion.IdComision">
+            <summary>
+            ID que refiere a una comision
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.DetalleInscripcion.IdUsuario">
+            <summary>
+            ID que refiere a un usuario del tipo estudiante
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.DetalleInscripcion.FechaInscripcion">
+            <summary>
+            Cadena que almacena la fecha en la que se efectuo la inscripcion a comision
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.DetalleInscripcion.Baja">
+            <summary>
+            Boolean que almacena el estado del registro de inscripcion a comision
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Dia.IdDia">
             <summary>
-            Id que identifica al dia
+            ID que refiere a un dia de la semana
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Dia.Nombre">
             <summary>
-            nombre que identifica al dia
+            Cadena que almacena el dia de la semana
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Inscripcion.IdInscripcion">
             <summary>
-            Id que identifica a la inscripcion
+            ID que refiere a un llamado a inscripción
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Inscripcion.IdInstancia">
             <summary>
-            Id que identifica a la instancia
+            ID que refiere a una instancia de inscripción
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Inscripcion.Descripcion">
             <summary>
-            descripcion de la inscripcion
+            Cadena que almacena la denominación del llamado a inscripción
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Inscripcion.Desde">
+            <summary>
+            Cadena que almacena la fecha de inicio del llamado de inscripción
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Inscripcion.Hasta">
+            <summary>
+            Cadena que almacena la fecha de finalización del llamado de inscrición
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Inscripcion.FechaInicio">
+            <summary>
+            Cadena que almacena la fecha de inicio para la carga de notas
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Inscripcion.FechaFin">
+            <summary>
+            Cadena que almacena la fecha de cierre para la carga de notas
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.Inscripcion.Anio">
+            <summary>
+            Cadena que almacena el año correspondiente al ciclo lectivo del llamado a inscripción
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Instancia.IdInstancia">
             <summary>
-            Id que identifica a la instancia
+            ID que refiere a la instancia de inscripción
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Instancia.Nombre">
             <summary>
-            nombre que identifica a la instancia
+            Cadena que almacena de denominación de la instancia de inscripción
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Materia.IdMateria">
             <summary>
-            Id que identifica a la materia
+            ID que refiere a una materia
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Materia.IdCarrera">
             <summary>
-            Id que identifica a la carrera de la materia
+            ID que refiere a una carrera
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Materia.Nombre">
             <summary>
-            nombre que identifica a la materia
+            Cadena que almacena la denominacion de la materia
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Materia.AnioCarrera">
             <summary>
-            Año de la Carrera
+            Cadena que almacena el año al cual pertenece la materia dentro del plan de estudio
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.NotaComision.Id">
+            <summary>
+            ID que refiere a un registro de nota correspondiente a una comision
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.NotaComision.IdUsuario">
+             <summary>
+            ID que refiere un usuario del tipo estudiante
+             </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.NotaComision.IdTipoNota">
+            <summary>
+            ID que refiere a un tipo de nota
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.NotaComision.Nota">
+            <summary>
+            Cadena que almacena la nota
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.NotaComision.Fecha">
+            <summary>
+            Cadena que almacena la fecha de carga de la nota
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.NotaComision.IdComision">
+             <summary>
+            ID que refiere a una comision 
+             </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.TipoNota.Id">
+            <summary>
+            ID que refiere a un tipo de nota
+            </summary>
+        </member>
+        <member name="P:DSSD_2022_TP3.Model.TipoNota.Nombre">
+            <summary>
+            Cadena que almacena la denominacion del tipo de nota
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.TipoUsuario.IdTipoUsuario">
             <summary>
-            Id que identifica al Tipo de Usuario
+            ID que refiere a un tipo de usuario
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.TipoUsuario.Nombre">
             <summary>
-            nombre que identifica al tipo de Usuario
+            Cadena que almacena la denominacion del tipo de usuario
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Turno.IdTurno">
             <summary>
-            Id que identifica al turno
+            ID que refiere a un turno
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Turno.Nombre">
             <summary>
-            nombre que identifica al turno
+            Cadena que almacena la denominacion del turno
             </summary>
         </member>
         <member name="P:DSSD_2022_TP3.Model.Usuario.IdUsuario">
              <summary>
-             Id que identifica al usuario
+             ID que refiere a un usuario
              </summary>
             
         </member>

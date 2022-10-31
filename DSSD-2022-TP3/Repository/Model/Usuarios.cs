@@ -23,7 +23,7 @@ namespace DSSD_2022_TP3.Model
         }
 
         /// <summary>
-        /// Id que identifica al usuario
+        /// ID que refiere a un usuario
         /// </summary>
         ///
         [Key]

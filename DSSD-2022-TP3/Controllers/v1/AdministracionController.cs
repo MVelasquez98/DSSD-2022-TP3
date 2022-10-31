@@ -21,6 +21,8 @@ namespace DSSD_2022_TP3.Controllers.v1
         // GET: api/v1/administracion/carreras
         [SwaggerOperation(Description = "Obiene el listado completo de carreras", Summary = "Obtener listado de carreras")]
         [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "Listado Vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("carreras")]
         public async Task<ActionResult<IEnumerable<Carrera>>> GetCarreras()
@@ -32,6 +34,8 @@ namespace DSSD_2022_TP3.Controllers.v1
         // GET: api/v1/administracion/carreras/1
         [SwaggerOperation(Description = "Obiene el listado completo de materia filtrado por idCarrera", Summary = "Obtener listado de materias por carrera")]
         [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "Listado Vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("materias/{idCarrera}")]
         public async Task<ActionResult<IEnumerable<Materia>>> GetMateriasByCarrera(int idCarrera)
@@ -43,6 +47,8 @@ namespace DSSD_2022_TP3.Controllers.v1
         // GET: api/v1/administracion/carreras
         [SwaggerOperation(Description = "Obiene el listado completo de turnos", Summary = "Obtener listado de turnos")]
         [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "Listado Vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("turnos")]
         public async Task<ActionResult<IEnumerable<Turno>>> GetTurnos()
@@ -55,6 +61,8 @@ namespace DSSD_2022_TP3.Controllers.v1
         // GET: api/v1/administracion/carreras
         [SwaggerOperation(Description = "Obiene el listado completo de dias de la semana", Summary = "Obtener listado de dias")]
         [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "Listado Vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("dias")]
         public async Task<ActionResult<IEnumerable<Dia>>> GetDias()
@@ -64,7 +72,11 @@ namespace DSSD_2022_TP3.Controllers.v1
             return Ok(dias);
         }
 
-        // POST: api/v1/administracion/cursada
+        // POST: api/v1/administracion/inscripcion
+        [SwaggerOperation(Description = "Se almacena una inscripcion que puede ser del tipo Final o cursada", Summary = "Guardar inscripcion")]
+        [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "Listado Vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost("inscripcion")]
         public async Task<ActionResult<InscripcionDTO>> PostInscripcion(InscripcionDTO inscripcionDto)
@@ -86,6 +98,9 @@ namespace DSSD_2022_TP3.Controllers.v1
         }
 
         // POST: api/v1/administracion/cursada
+        [SwaggerOperation(Description = "Se almacena una comision del tipo cursada", Summary = "Guardar cursada")]
+        [SwaggerResponse(200, "Cursada guardada")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost("cursada")]
         public async Task<ActionResult<ComisionDTO>> PostCursada(ComisionDTO comisionDto)
@@ -105,9 +120,12 @@ namespace DSSD_2022_TP3.Controllers.v1
             };
             _context.Comisiones.Add(comision);
             await _context.SaveChangesAsync();
-            return comisionDto;
+            return Ok(comisionDto);
         }
         // POST: api/v1/administracion/examen
+        [SwaggerOperation(Description = "Se almacena una comision del tipo examen final", Summary = "Guardar examen final")]
+        [SwaggerResponse(200, "Examen guardado")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost("examen")]
         public async Task<ActionResult<ExamenDTO>> PostExamen(ExamenDTO examenDTO)
@@ -125,12 +143,13 @@ namespace DSSD_2022_TP3.Controllers.v1
             };
             _context.Comisiones.Add(comision);
             await _context.SaveChangesAsync();
-            return examenDTO;
+            return Ok(examenDTO);
         }
         //GET: api/administracion/inscripcion$idInstancia=<idInstancia>&fecha=<fechaActual>
         [SwaggerOperation(Description = "Obiene el listado completo de inscripciones de una instancia y fecha determinada, si la fecha es nula se recibe el listado completo de inscripciones", Summary = "Obtener listado de inscripciones por fecha e instancia")]
         [SwaggerResponse(200, "Listado completo")]
         [SwaggerResponse(204, "No existen resultados bajo esos criterios de busqueda")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("inscripcion")]
         public async Task<ActionResult> GetInscripciones(int idInstancia, string? fechaActual)

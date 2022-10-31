@@ -7,13 +7,13 @@ namespace DSSD_2022_TP3.Model
     public class Carrera
     {
         /// <summary>
-        /// Id que identifica a la carrera
+        /// ID que refiere a una carrera
         /// </summary>
         [Key]
         [Column("idCarrera")]
         public int IdCarrera { get; set; }
         /// <summary>
-        /// nombre que identifica a la carrera
+        /// Cadena que almacena el nombre de la carrera
         /// </summary>
         [Column("carrera")]
         public string Nombre { get; set; }

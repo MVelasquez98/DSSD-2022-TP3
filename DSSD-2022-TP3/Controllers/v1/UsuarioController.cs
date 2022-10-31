@@ -20,46 +20,66 @@ namespace DSSD_2022_TP3.Controllers.v1
         }
 
         // POST: api/v1/usuario/login
+        [SwaggerOperation(Description = "Obiene un usuario determinado a partir de su nombre de usuario y contraseña", Summary = "Obtiene los datos del usuario")]
+        [SwaggerResponse(200, "Usuario encontrado")]
+        [SwaggerResponse(404, "Nombre de usuario o contraseña no coinciden con ningun usuario registrado")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost("login")]
         public async Task<ActionResult<Usuario>> Login(string username, string password)
         {
             Usuario? usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Username == username && u.Clave == password);
-            if (usuario == null) return StatusCode(204, $"usrname:{username} y password:{password} no esta registrado");
-            return usuario;
+            if (usuario == null) return StatusCode(404, $"usrname:{username} y password:{password} no esta registrado");
+            return Ok(usuario);
         }
 
         // GET: api/v1/estudiantes
         [SwaggerOperation(Description = "Obiene el listado completo de estudiantes", Summary = "Obtener listado de estudiantes")]
         [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "Listado vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("estudiantes")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetEstudiantes()
         {
-            return await _context.Usuarios.Where(u => u.IdTipoUsuario == ((int)TiposUsuario.Estudiante)).ToListAsync();
+            var estudiantes = await _context.Usuarios.Where(u => u.IdTipoUsuario == ((int)TiposUsuario.Estudiante)).ToListAsync();
+            if (estudiantes.Count == 0) return NoContent();
+            return Ok(estudiantes);
         }
 
         // GET: api/v1/docentes
         [SwaggerOperation(Description = "Obiene el listado completo de docentes", Summary = "Obtener listado de docentes")]
         [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "Listado vacio")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("docentes")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetDocentes()
         {
-            return await _context.Usuarios.Where(u => u.IdTipoUsuario == ((int)TiposUsuario.Docente)).ToListAsync();
+            var docentes = await _context.Usuarios.Where(u => u.IdTipoUsuario == ((int)TiposUsuario.Docente)).ToListAsync();
+            if (docentes.Count == 0) return NoContent();
+            return Ok(docentes);
         }
 
         // GET: api/v1/docentes/1
         [SwaggerOperation(Description = "Obiene el listado de docentes segun el id de carrera", Summary = "Obtener listado de docentes segun carrera")]
         [SwaggerResponse(200, "Listado completo")]
+        [SwaggerResponse(204, "No hay ningun docente asociado a esa carrera")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("docentes/{idCarrera}")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetDocentesByCarrera(int idCarrera)
         {
-            return await _context.Usuarios.Where(u => u.IdTipoUsuario == ((int)TiposUsuario.Docente) && u.IdCarrera == idCarrera).ToListAsync();
+            var docentes = await _context.Usuarios.Where(u => u.IdTipoUsuario == ((int)TiposUsuario.Docente) && u.IdCarrera == idCarrera).ToListAsync();
+            if (docentes.Count == 0) return NoContent();
+            return Ok(docentes);
         }
 
         // GET: api/v1/usuario/5
+        [SwaggerOperation(Description = "Obiene un usuario a partir de su id", Summary = "Obtener usuario")]
+        [SwaggerResponse(200, "Usuario encontrado")]
+        [SwaggerResponse(404, "No hay ningun usuario asociado a ese id")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
@@ -71,10 +91,15 @@ namespace DSSD_2022_TP3.Controllers.v1
                 return NotFound();
             }
 
-            return estudiante;
+            return Ok(estudiante);
         }
 
         // PUT: api/v1/usuarios/5
+        [SwaggerOperation(Description = "Actualizar un usuario a partir de su id", Summary = "Actualizar usuario")]
+        [SwaggerResponse(400, "El id del usuario no corresponde a ninguno registrado")]
+        [SwaggerResponse(200, "Usuario modificado")]
+        [SwaggerResponse(404, "No hay ningun usuario asociado a ese id")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
@@ -88,7 +113,7 @@ namespace DSSD_2022_TP3.Controllers.v1
             try
             {
                 await _context.SaveChangesAsync();
-                return CreatedAtAction("GetUsuario", new { id = usuario.IdUsuario }, usuario);
+                return Ok(CreatedAtAction("GetUsuario", new { id = usuario.IdUsuario }, usuario));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -104,6 +129,9 @@ namespace DSSD_2022_TP3.Controllers.v1
         }
 
         // POST: api/v1/usuario
+        [SwaggerOperation(Description = "Registar un usuario", Summary = "Guardar usuario")]
+        [SwaggerResponse(200, "Usuario guardado")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(UsuarioDTO usuario)
@@ -111,10 +139,14 @@ namespace DSSD_2022_TP3.Controllers.v1
             Usuario userSave = new Usuario(usuario.Nombre, usuario.Apellido, usuario.Dni, usuario.Correo, usuario.Celular, usuario.IdCarrera, usuario.IdTipoUsuario);
             var userAdd = _context.Usuarios.Add(userSave);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetUsuario", new { id = userAdd.Entity.IdUsuario }, userSave);
+            return Ok(CreatedAtAction("GetUsuario", new { id = userAdd.Entity.IdUsuario }, userSave));
         }
 
         // DELETE: api/v1/usuarios/5
+        [SwaggerOperation(Description = "Eliminar un usuario a partir de su id", Summary = "Eliminar usuario")]
+        [SwaggerResponse(200, "Usuario eliminado")]
+        [SwaggerResponse(404, "No hay ningun usuario asociado a ese id")]
+        [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
@@ -128,7 +160,7 @@ namespace DSSD_2022_TP3.Controllers.v1
             _context.Usuarios.Remove(estudiante);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool UsuarioExists(int id)

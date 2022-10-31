@@ -7,13 +7,13 @@ namespace DSSD_2022_TP3.Model
     public class Instancia
     {
         /// <summary>
-        /// Id que identifica a la instancia
+        /// ID que refiere a la instancia de inscripción
         /// </summary>
         [Key]
         [Column("idInstancia")]
         public int IdInstancia { get; set; }
         /// <summary>
-        /// nombre que identifica a la instancia
+        /// Cadena que almacena de denominación de la instancia de inscripción
         /// </summary>
         [Column("instancia")]
         public string Nombre { get; set; }
