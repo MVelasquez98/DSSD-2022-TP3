@@ -22,5 +22,10 @@ namespace DSSD_2022_TP3.Model
         public Comision Comision { get; set; }
         public Usuario Usuario { get; set; }
         public TipoNota TipoNota { get; set; }
+
+        public static implicit operator NotaComision(NotaComision v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -100,11 +100,11 @@ namespace DSSD_2022_TP3.Controllers.v1
                         Dni = x.Usuario.Dni,
                         Nombre = x.Usuario.Nombre,
                         Apellido = x.Usuario.Apellido,
-                        PrimerParcial = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 1).FirstOrDefault().Nota,
-                        SegundoParcial = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 2).FirstOrDefault().Nota,
-                        NotaCursada = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 10).FirstOrDefault().Nota,
-                        NotaFinal = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 11).FirstOrDefault().Nota,
-                        NotaDefinitiva = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == 12).FirstOrDefault().Nota
+                        PrimerParcial = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == (int)TipoNotas.PrimerParcial).FirstOrDefault().Nota,
+                        SegundoParcial = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == (int)TipoNotas.SegundoParcial).FirstOrDefault().Nota,
+                        NotaCursada = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == (int)TipoNotas.NotaCursada).FirstOrDefault().Nota,
+                        NotaFinal = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == (int)TipoNotas.NotaFinal).FirstOrDefault().Nota,
+                        NotaDefinitiva = _context.NotasComisiones.Where(n => n.IdUsuario == x.IdUsuario && n.IdTipoNota == (int)TipoNotas.NotaDefinitiva).FirstOrDefault().Nota
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();
@@ -114,7 +114,7 @@ namespace DSSD_2022_TP3.Controllers.v1
         // POST: api/v1/docente/notaComision
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost("notaComision")]
-        public async Task<ActionResult> PostInscripcion(List<NotaComisionDTO> notas)
+        public async Task<ActionResult> PostNotas(List<NotaComisionDTO> notas)
         {
             foreach (var notaComisionDto in notas)
             {
@@ -128,8 +128,49 @@ namespace DSSD_2022_TP3.Controllers.v1
                 };
                 _context.NotasComisiones.Add(notaComision);
                 await _context.SaveChangesAsync();
+                CalcularNotafinal(notaComision);
+
             }
             return Ok();
+        }
+        private async void CalcularNotafinal(NotaComision notaComision)
+        {
+            if (notaComision.IdTipoNota == (int)TipoNotas.SegundoParcial)
+            {
+                var primerParcial = _context.NotasComisiones.FirstOrDefault(p => p.IdTipoNota == (int)TipoNotas.PrimerParcial);
+                if (primerParcial != null)
+                {
+                    NotaComision notaCursada = new NotaComision()
+                    {
+                        IdUsuario = notaComision.IdUsuario,
+                        IdTipoNota = (int)TipoNotas.NotaCursada,
+                        Nota = ((int.Parse(notaComision.Nota) + int.Parse(primerParcial.Nota)) / 2).ToString(),
+                        Fecha = DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss"),
+                        IdComision = notaComision.IdComision,
+                    };
+                    _context.NotasComisiones.Add(notaCursada);
+                }
+            }
+            if (notaComision.IdTipoNota == (int)TipoNotas.NotaFinal)
+            {
+                var notaCursada = _context.NotasComisiones.FirstOrDefault(n => n.IdTipoNota == (int)TipoNotas.NotaCursada && n.IdUsuario == notaComision.IdUsuario);
+                if (notaCursada != null)
+                {
+                    var cursada = int.Parse(notaCursada.Nota);
+                    var final = int.Parse(notaComision.Nota);
+                    var nota = cursada < 4 ? final : (cursada + final) / 2;
+                    NotaComision notaDefinitiva = new NotaComision()
+                    {
+                        IdUsuario = notaComision.IdUsuario,
+                        IdTipoNota = (int)TipoNotas.NotaDefinitiva,
+                        Nota = nota.ToString(),
+                        Fecha = DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss"),
+                        IdComision = notaComision.IdComision,
+                    };
+                    _context.NotasComisiones.Add(notaDefinitiva);
+                }
+            }
+            await _context.SaveChangesAsync();
         }
     }
 }
