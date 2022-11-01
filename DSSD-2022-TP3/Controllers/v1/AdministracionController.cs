@@ -114,7 +114,8 @@ namespace DSSD_2022_TP3.Controllers.v1
                 IdDia = comisionDto.Dia,
                 NroComision = int.Parse($"{comisionDto.IdMateria}{cantInscripciones}"),
                 Anio = comisionDto.Anio,
-                RangoHorario = $"{comisionDto.HoraInicio}-{comisionDto.HoraFin}",
+                RangoHorario = $"{comisionDto.HoraInicio}-{comisionDto.HoraFin}hs",
+                Fecha = ""
             };
             _context.Comisiones.Add(comision);
             try
@@ -140,10 +141,12 @@ namespace DSSD_2022_TP3.Controllers.v1
             {
                 IdInscripcion = examenDTO.IdInscripcion,
                 IdMateria = examenDTO.IdMateria,
+                IdTurno = 1,
+                IdDia = 1,
                 IdUsuario = examenDTO.IdDocente,
                 NroComision = int.Parse($"{examenDTO.IdMateria}{cantInscripciones}"),
                 Anio = examenDTO.Anio,
-                RangoHorario = examenDTO.HoraInicio,
+                RangoHorario = $"{examenDTO.HoraInicio}hs",
                 Fecha = examenDTO.Fecha
             };
             _context.Comisiones.Add(comision);
