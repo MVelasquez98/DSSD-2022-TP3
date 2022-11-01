@@ -18,7 +18,10 @@ namespace DSSD_2022_TP3.Model
             IdCarrera = idCarrera;
             IdTipoUsuario = idTipoUsuario;
             ForzarClave = true;
-            Username = $"{nombre.Substring(0, 3).ToLower()}{apellido.ToLower()}{dni.Substring(0, 2)}";
+            if (nombre != null)
+            {
+                Username = $"{nombre.Substring(0, 3).ToLower()}{apellido.ToLower()}{dni.Substring(0, 2)}";
+            }
             Clave = "Pass123";
         }
 
@@ -32,21 +35,21 @@ namespace DSSD_2022_TP3.Model
         /// <summary>
         /// nombre que identifica al usuario
         /// </summary>
-        [Required]
+        
         [Column("nombre")]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
         /// <summary>
         /// apellido que identifica al usuario
         /// </summary>
-        [Required]
+        
         [Column("apellido")]
-        public string Apellido { get; set; }
+        public string? Apellido { get; set; }
         /// <summary>
         /// dni que identifica al usuario
         /// </summary>
-        [Required]
+        
         [Column("dni")]
-        public string Dni { get; set; }
+        public string? Dni { get; set; }
         /// <summary>
         /// usuario que identifica al usuario (basado en el nombre y apellido de la persona)
         /// </summary>
@@ -60,15 +63,15 @@ namespace DSSD_2022_TP3.Model
         /// <summary>
         /// correo como dato de contacto del usuario
         /// </summary>
-        [Required]
+        
         [Column("correo")]
         public string? Correo { get; set; }
         /// <summary>
         /// celular como dato de contacto del usuario
         /// </summary>
-        [Required]
+        
         [Column("celular")]
-        public string Celular { get; set; }
+        public string? Celular { get; set; }
         /// <summary>
         /// Id que identifica a la carrera del usuario
         /// </summary>

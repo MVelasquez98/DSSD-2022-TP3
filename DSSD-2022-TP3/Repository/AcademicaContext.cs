@@ -24,6 +24,13 @@ namespace DSSD_2022_TP3.Repository
                 model.HasKey(m => m.IdUsuario);
                 model.HasOne(m => m.Carrera).WithMany().HasForeignKey(m => m.IdCarrera);
                 model.HasOne(m => m.TipoUsuario).WithMany().HasForeignKey(m => m.IdTipoUsuario);
+                model.Property(m => m.Nombre).IsRequired(false);
+                model.Property(m => m.Apellido).IsRequired(false);
+                model.Property(m => m.Dni).IsRequired(false);
+                model.Property(m => m.Celular).IsRequired(false);
+                model.Property(m => m.Correo).IsRequired(false);
+
+
             });
             modelBuilder.Entity<Inscripcion>(model =>
             {

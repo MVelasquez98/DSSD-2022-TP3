@@ -74,8 +74,7 @@ namespace DSSD_2022_TP3.Controllers.v1
 
         // POST: api/v1/administracion/inscripcion
         [SwaggerOperation(Description = "Se almacena una inscripcion que puede ser del tipo Final o cursada", Summary = "Guardar inscripcion")]
-        [SwaggerResponse(200, "Listado completo")]
-        [SwaggerResponse(204, "Listado Vacio")]
+        [SwaggerResponse(200, "Inscripcion Creada")]
         [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpPost("inscripcion")]
