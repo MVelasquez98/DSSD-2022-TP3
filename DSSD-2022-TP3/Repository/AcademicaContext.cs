@@ -45,6 +45,7 @@ namespace DSSD_2022_TP3.Repository
                 model.HasOne(m => m.Materia).WithMany().HasForeignKey(m => m.IdMateria);
                 model.HasOne(m => m.Usuario).WithMany().HasForeignKey(m => m.IdUsuario);
                 model.HasOne(m => m.Dia).WithMany().HasForeignKey(m => m.IdDia);
+                model.Property(m => m.Fecha).IsRequired(false);
             });
 
             modelBuilder.Entity<DetalleInscripcion>(model =>

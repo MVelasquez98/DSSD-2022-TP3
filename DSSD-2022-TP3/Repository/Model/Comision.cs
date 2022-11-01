@@ -56,7 +56,7 @@ namespace DSSD_2022_TP3.Model
         /// Cadena que almacena fecha de inicio de cursada o fecha de mesa de exámen
         /// </summary>
         [Column("fecha")]
-        public string Fecha { get; set; }
+        public string? Fecha { get; set; }
         public Inscripcion Inscripcion { get; set; }
         public Turno? Turno { get; set; }
         public Materia Materia { get; set; }

@@ -115,10 +115,16 @@ namespace DSSD_2022_TP3.Controllers.v1
                 NroComision = int.Parse($"{comisionDto.IdMateria}{cantInscripciones}"),
                 Anio = comisionDto.Anio,
                 RangoHorario = $"{comisionDto.HoraInicio}-{comisionDto.HoraFin}",
-                Fecha = comisionDto.Fecha
             };
             _context.Comisiones.Add(comision);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error: {ex.Message}{ex.InnerException}");
+            }
             return Ok(comisionDto);
         }
         // POST: api/v1/administracion/examen
