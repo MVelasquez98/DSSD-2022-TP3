@@ -77,9 +77,9 @@ namespace DSSD_2022_TP3.Controllers.v1
             return Ok(materias);
         }
         // GET: api/v1/docente/alumnos/cursada?idDocente=1
-        [SwaggerOperation(Description = "Obiene el listado completo de alumnos de cada materia asignada a un docente de una comision del tipo cursada determinada", Summary = "Obtener listado de alumnos")]
-        [SwaggerResponse(200, "Listado completo")]
-        [SwaggerResponse(204, "Listado vacio")]
+        [SwaggerOperation(Description = "Obiene el listado completo de alumnos de cada materia asignada a un docente de una comision del tipo cursada o examen determinada", Summary = "Obtener listado de alumnos")]
+        [SwaggerResponse(200, "Listado")]
+        [SwaggerResponse(404, "Listado vacio")]
         [SwaggerResponse(500, "Error Interno")]
         [ApiExplorerSettings(GroupName = "v1")]
         [HttpGet("alumnos/cursada")]
@@ -91,7 +91,6 @@ namespace DSSD_2022_TP3.Controllers.v1
                 .Include(d => d.Comision).ThenInclude(c => c.Materia)
                 .Include(d => d.Comision).ThenInclude(c => c.Usuario)
                 .Where(d => d.Comision.IdUsuario == idDocente
-                && d.Inscripcion.IdInstancia == ((int)TipoInstancia.Cursada)
                 && d.Comision.IdComision == idComision)
                 .GroupBy(d => d.Comision.Materia.IdMateria)
                 .Select(x => new DetalleInscripcionDTO()
