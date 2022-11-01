@@ -136,14 +136,14 @@ namespace DSSD_2022_TP3.Controllers.v1
                 await _context.SaveChangesAsync();
                 if (notaComision.IdTipoNota == (int)TipoNotas.SegundoParcial)
                 {
-                    var primerParcial = _context.NotasComisiones.FirstOrDefaultAsync(p => p.IdTipoNota == (int)TipoNotas.PrimerParcial);
+                    var primerParcial = _context.NotasComisiones.FirstOrDefault(p => p.IdTipoNota == (int)TipoNotas.PrimerParcial && p.IdUsuario == notaComision.IdUsuario && p.IdComision == notaComision.IdComision);
                     if (primerParcial != null)
                     {
                         NotaComision notaCursada = new NotaComision()
                         {
                             IdUsuario = notaComision.IdUsuario,
                             IdTipoNota = (int)TipoNotas.NotaCursada,
-                            Nota = ((int.Parse(notaComision.Nota) + int.Parse(primerParcial.Result.Nota)) / 2).ToString(),
+                            Nota = ((Convert.ToInt32(notaComision.Nota) + Convert.ToInt32(primerParcial.Nota)) / 2).ToString(),
                             Fecha = DateTime.Now.ToString("yyyy-mm-dd"),
                             IdComision = notaComision.IdComision,
                         };
@@ -153,11 +153,11 @@ namespace DSSD_2022_TP3.Controllers.v1
                 }
                 if (notaComision.IdTipoNota == (int)TipoNotas.NotaFinal)
                 {
-                    var notaCursada = _context.NotasComisiones.FirstOrDefaultAsync(n => n.IdTipoNota == (int)TipoNotas.NotaCursada && n.IdUsuario == notaComision.IdUsuario);
+                    var notaCursada = _context.NotasComisiones.FirstOrDefault(n => n.IdTipoNota == (int)TipoNotas.NotaCursada && n.IdUsuario == notaComision.IdUsuario && n.IdComision == notaComision.IdComision);
                     if (notaCursada != null)
                     {
-                        var cursada = int.Parse(notaCursada.Result.Nota);
-                        var final = int.Parse(notaComision.Nota);
+                        var cursada = Convert.ToInt32(notaCursada.Nota);
+                        var final = Convert.ToInt32(notaComision.Nota);
                         var nota = cursada < 4 ? final : (cursada + final) / 2;
                         NotaComision notaDefinitiva = new NotaComision()
                         {
