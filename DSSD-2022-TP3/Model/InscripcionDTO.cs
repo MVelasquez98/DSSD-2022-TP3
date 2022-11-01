@@ -4,6 +4,8 @@ namespace DSSD_2022_TP3.Model
 {
     public class InscripcionDTO
     {
+        [JsonProperty("idInscripcion")]
+        public int IdInscripcion { get; set; }
         [JsonProperty("descripcion")]
         public string Descripcion { get; set; }
         [JsonProperty("desde")]

@@ -165,6 +165,7 @@ namespace DSSD_2022_TP3.Controllers.v1
             {
                 InscripcionDTO inscripcionDTO = new InscripcionDTO()
                 {
+                    IdInscripcion = inscripcion.IdInscripcion,
                     Descripcion = inscripcion.Descripcion,
                     Desde = inscripcion.Desde,
                     FechaFin = inscripcion.FechaFin,
