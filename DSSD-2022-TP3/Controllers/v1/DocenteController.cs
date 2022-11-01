@@ -134,49 +134,46 @@ namespace DSSD_2022_TP3.Controllers.v1
                 };
                 _context.NotasComisiones.Add(notaComision);
                 await _context.SaveChangesAsync();
-                CalcularNotafinal(notaComision);
+                if (notaComision.IdTipoNota == (int)TipoNotas.SegundoParcial)
+                {
+                    var primerParcial = _context.NotasComisiones.FirstOrDefaultAsync(p => p.IdTipoNota == (int)TipoNotas.PrimerParcial);
+                    if (primerParcial != null)
+                    {
+                        NotaComision notaCursada = new NotaComision()
+                        {
+                            IdUsuario = notaComision.IdUsuario,
+                            IdTipoNota = (int)TipoNotas.NotaCursada,
+                            Nota = ((int.Parse(notaComision.Nota) + int.Parse(primerParcial.Result.Nota)) / 2).ToString(),
+                            Fecha = DateTime.Now.ToString("yyyy-mm-dd"),
+                            IdComision = notaComision.IdComision,
+                        };
+                        _context.NotasComisiones.Add(notaCursada);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                if (notaComision.IdTipoNota == (int)TipoNotas.NotaFinal)
+                {
+                    var notaCursada = _context.NotasComisiones.FirstOrDefaultAsync(n => n.IdTipoNota == (int)TipoNotas.NotaCursada && n.IdUsuario == notaComision.IdUsuario);
+                    if (notaCursada != null)
+                    {
+                        var cursada = int.Parse(notaCursada.Result.Nota);
+                        var final = int.Parse(notaComision.Nota);
+                        var nota = cursada < 4 ? final : (cursada + final) / 2;
+                        NotaComision notaDefinitiva = new NotaComision()
+                        {
+                            IdUsuario = notaComision.IdUsuario,
+                            IdTipoNota = (int)TipoNotas.NotaDefinitiva,
+                            Nota = nota.ToString(),
+                            Fecha = DateTime.Now.ToString("yyyy-mm-dd"),
+                            IdComision = notaComision.IdComision,
+                        };
+                        _context.NotasComisiones.Add(notaDefinitiva);
+                        await _context.SaveChangesAsync();
+                    }
+                }
 
             }
             return Ok();
-        }
-        private async void CalcularNotafinal(NotaComision notaComision)
-        {
-            if (notaComision.IdTipoNota == (int)TipoNotas.SegundoParcial)
-            {
-                var primerParcial = _context.NotasComisiones.FirstOrDefault(p => p.IdTipoNota == (int)TipoNotas.PrimerParcial);
-                if (primerParcial != null)
-                {
-                    NotaComision notaCursada = new NotaComision()
-                    {
-                        IdUsuario = notaComision.IdUsuario,
-                        IdTipoNota = (int)TipoNotas.NotaCursada,
-                        Nota = ((int.Parse(notaComision.Nota) + int.Parse(primerParcial.Nota)) / 2).ToString(),
-                        Fecha = DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss"),
-                        IdComision = notaComision.IdComision,
-                    };
-                    _context.NotasComisiones.Add(notaCursada);
-                }
-            }
-            if (notaComision.IdTipoNota == (int)TipoNotas.NotaFinal)
-            {
-                var notaCursada = _context.NotasComisiones.FirstOrDefault(n => n.IdTipoNota == (int)TipoNotas.NotaCursada && n.IdUsuario == notaComision.IdUsuario);
-                if (notaCursada != null)
-                {
-                    var cursada = int.Parse(notaCursada.Nota);
-                    var final = int.Parse(notaComision.Nota);
-                    var nota = cursada < 4 ? final : (cursada + final) / 2;
-                    NotaComision notaDefinitiva = new NotaComision()
-                    {
-                        IdUsuario = notaComision.IdUsuario,
-                        IdTipoNota = (int)TipoNotas.NotaDefinitiva,
-                        Nota = nota.ToString(),
-                        Fecha = DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss"),
-                        IdComision = notaComision.IdComision,
-                    };
-                    _context.NotasComisiones.Add(notaDefinitiva);
-                }
-            }
-            await _context.SaveChangesAsync();
         }
     }
 }
